@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crh.books_sys.dao.BookDao">
+
+    <resultMap type="com.crh.books_sys.entity.Book" id="BookMap">
+        <result property="bid" column="bid" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="publish" column="publish" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="OTHER"/>
+        <result property="crttime" column="crtTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getAllBooks" resultMap="BookMap">
+        select * from book
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BookMap">
+        select
+          bid, name, author, publish, price, crtTime
+        from books_manage_system.book
+        where bid = #{bid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BookMap">
+        select
+          bid, name, author, publish, price, crtTime
+        from books_manage_system.book
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BookMap">
+        select
+        bid, name, author, publish, price, crtTime
+        from books_manage_system.book
+        <where>
+            <if test="bid != null">
+                and bid = #{bid}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="author != null and author != ''">
+                and author = #{author}
+            </if>
+            <if test="publish != null and publish != ''">
+                and publish = #{publish}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="crttime != null">
+                and crtTime = #{crttime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="bid" useGeneratedKeys="true">
+        insert into books_manage_system.book(name, author, publish, price, crtTime)
+        values (#{name}, #{author}, #{publish}, #{price}, #{crttime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="bid" useGeneratedKeys="true">
+        insert into books_manage_system.book(name, author, publish, price, crtTime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.author}, #{entity.publish}, #{entity.price}, #{entity.crttime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="bid" useGeneratedKeys="true">
+        insert into books_manage_system.book(name, author, publish, price, crtTime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.author}, #{entity.publish}, #{entity.price}, #{entity.crttime})
+        </foreach>
+        on duplicate key update
+        name = values(name) , author = values(author) , publish = values(publish) , price = values(price) , crtTime =
+        values(crtTime)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update books_manage_system.book
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="author != null and author != ''">
+                author = #{author},
+            </if>
+            <if test="publish != null and publish != ''">
+                publish = #{publish},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="crttime != null">
+                crtTime = #{crttime},
+            </if>
+        </set>
+        where bid = #{bid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from books_manage_system.book where bid = #{bid}
+    </delete>
+
+</mapper>

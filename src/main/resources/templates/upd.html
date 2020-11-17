@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div align="center">
+    <h2>修改图书信息</h2>
+    <form action="CommonServlet?type=updedbook&bid=${book.getBid()}" method="post">
+        图书名：<input type="text" name="name" value="${book.getName()}"><br>
+        作者：<input type="text" name="author" value="${book.getAuthor()}"><br>
+        出版社：<input type="text" name="publish" value="${book.getPublish()}"><br>
+        价格：<input type="text" name="price" value="${book.getPrice()}"><br>
+        入库时间：${book.getCrtTime()}<br>
+        <input type="submit" value="提交">
+    </form>
+</div>
+</body>
+</html>

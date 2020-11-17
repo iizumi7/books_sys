@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/books_manage_system?serverTimezone=GMT%2B8&characterEncoding=utf-8
+    username: root
+    password: root
+
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    encoding: utf-8
+    prefix: classpath:templates/
+    suffix: .html
+    enabled: true
+
+mybatis:
+  type-aliases-package: com.crh.books_sys.entity
+  mapper-locations: classpath:mapper/*Dao.xml
