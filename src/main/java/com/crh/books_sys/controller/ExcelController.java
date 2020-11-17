@@ -29,7 +29,7 @@ public class ExcelController {
     @RequestMapping("import")
     public String readExcel(@RequestParam("excel") MultipartFile excel){
         List<Object> list = excelService.importBooksExcel(excel, new Book());
-//        System.out.println(list);
+//        System.out.println();
 
         return "forward:/book/getAllBooks";
     }
