@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper
 public interface AdminDao {
 
-    Integer login(String name,String password);
+    Integer login(@Param("name") String name,@Param("pass") String password);
 
     int queryByName(String name);
 

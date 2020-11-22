@@ -10,7 +10,7 @@
     </resultMap>
 
     <select id="login" resultType="java.lang.Integer">
-        select count(1) from admin where acctName=#{name } and password=#{password}
+        select count(1) from admin where acctName=#{name } and password=#{pass}
     </select>
 
     <select id="queryByName" resultType="java.lang.Integer">
